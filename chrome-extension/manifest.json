@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+
+    "name": "Mo'Meta",
+    "description": "Annotate YouTube vids with more metadata.",
+    "version": "1.0",
+
+    "permissions": [
+        "declarativeContent",
+        "http://mometa.herokuapp.com/*"
+    ],
+    "icons": {
+        "16": "images/16x16.png",
+        "48": "images/48x48.png",
+        "64": "images/64x64.png"
+    },
+    "page_action": {
+        "default_icon": "images/32x32.png",
+        "default_popup": "mometa.html"
+    },
+    "background": {
+        "scripts": ["bg.js"]
+    },
+    "content_scripts": [{
+        "matches": ["*://youtube.com/watch*", "*://*.youtube.com/watch*"],
+        "js": ["jquery-2.1.3.min.js", "mometa.js"],
+        "web_accessible_resources": [],
+        "run_at": "document_idle"
+    }]
+}
