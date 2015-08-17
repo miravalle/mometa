@@ -1,0 +1,14 @@
+{
+    "indian-classical": {
+        "name": "Indian Classical",
+        "fields": ["raag", "artist"]
+    },
+    "western-classical": {
+        "name": "Western Classical",
+        "fields": ["artist", "title", "composer"]
+    },
+    "fusion": {
+    	"name": "Fusion",
+    	"fields": ["artist", "title"]
+    }
+}

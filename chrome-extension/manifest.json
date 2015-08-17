@@ -16,7 +16,7 @@
     },
     "page_action": {
         "default_icon": "images/32x32.png",
-        "default_popup": "mometa.html"
+        "default_popup": "popup.html"
     },
     "background": {
         "scripts": ["bg.js"]
