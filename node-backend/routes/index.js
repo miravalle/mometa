@@ -18,23 +18,37 @@ router.get('/get/:videoId', function(req, res, next) {
         }
     });
     res.send({});
-    next();
 });
 
 router.post('/add/:videoId', function(req, res, next) {
-    var vid = new Video({
-        videoId: req.params.videoId,
-        metadata: req.body.metadata,
-        genre: req.body.genre
-    })
-    vid.save();
-    res.send({
-        videoId: req.params.videoId,
-        metadata: req.body.metadata,
-        genre: req.body.genre
+    console.log(req.body)
+    Video.find({
+        videoId: req.params.videoId
+    }, function(err, docs) {
+        if (docs.length > 0) {
+            Video.update({
+                videoId: req.params.videoId
+            }, {
+                videoId: req.params.videoId,
+                metadata: req.body.metadata,
+                genre: req.body.genre
+            }, function() {
+                res.send('done');
+            });
+        } else {
+            var vid = new Video({
+                videoId: req.params.videoId,
+                metadata: req.body.metadata,
+                genre: req.body.genre
+            })
+            vid.save();
+            res.send({
+                videoId: req.params.videoId,
+                metadata: req.body.metadata,
+                genre: req.body.genre
+            });
+        }
     });
-
-    next();
 });
 
 router.get('/remove/:videoId', function(req, res, next) {
@@ -45,7 +59,6 @@ router.get('/remove/:videoId', function(req, res, next) {
             removed: true
         });
     });
-    next();
 });
 
 
