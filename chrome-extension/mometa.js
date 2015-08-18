@@ -13,12 +13,17 @@ function getQuerystring(key, default_) {
 
 function generateHTML(stuff, callback) {
     $.getJSON(chrome.extension.getURL('genres.json'), function(genres) {
-        var sdf = "Genre: " + genres[stuff.genre].name + "<br>";
-        parsed = JSON.parse(stuff.metadata);
-        for (var i = 0; i < Object.keys(parsed).length; i++) {
-            sdf += Object.keys(parsed)[i].capitalize() + ": " + parsed[Object.keys(parsed)[i]] + "<br>"
-        };
-        callback(sdf)
+        if (genres[stuff.genre]) {
+            var sdf = "Genre: " + genres[stuff.genre].name + "<br>";
+            parsed = JSON.parse(stuff.metadata);
+            for (var i = 0; i < Object.keys(parsed).length; i++) {
+                sdf += Object.keys(parsed)[i].capitalize() + ": " + parsed[Object.keys(parsed)[i]] + "<br>"
+            };
+            callback(sdf)
+        }
+        else {
+            callback("Nothing here...");
+        }
     });
 }
 
