@@ -22,44 +22,19 @@ router.get('/get/:videoId', function(req, res, next) {
 });
 
 router.post('/add/:videoId', function(req, res, next) {
-	next();
-    if (db().map(function(item) {
-            return item.videoId
-        }).indexOf(req.params.videoId) === -1) {
-        var vid = new Video({
-            videoId: req.params.videoId,
-            metadata: req.body.metadata
-        })
-        vid.save();
-        res.send({
-            videoId: req.params.videoId,
-            metadata: req.body.metadata
-        });
-    } else {
-        var videoData
-        Video.find({
-            videoId: req.params.videoId
-        }, function(err, docs) {
-            if (!err) {
-                if (docs.length === 1) {
-                    videoData = docs[0];
-                }
-            }
-            Video.remove({
-                videoId: req.params.videoId
-            }, function(err) {
-                var vid = new Video({
-                    videoId: req.params.videoId,
-                    metadata: videoData.metadata + ' ' + req.body.metadata
-                })
-                vid.save()
-                res.send({
-                    videoId: req.params.videoId,
-                    metadata: videoData.metadata + ' ' + req.body.metadata
-                })
-            })
-        })
-    }
+    var vid = new Video({
+        videoId: req.params.videoId,
+        metadata: req.body.metadata,
+        genre: req.body.genre
+    })
+    vid.save();
+    res.send({
+        videoId: req.params.videoId,
+        metadata: req.body.metadata,
+        genre: req.body.genre
+    });
+
+    next();
 });
 
 router.get('/remove/:videoId', function(req, res, next) {
