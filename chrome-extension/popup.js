@@ -38,7 +38,8 @@ var initGenres = function() {
 
 var setFields = function(arr) {
     $('#fields').html('');
+    $('#lol').removeClass('hidden');
     for (var i = 0; i < arr.length; i++) {
-        $('#fields').append($('<input type="text" class="field" placeholder="'+arr[i][0].toUpperCase() + arr[i].slice(1) + '" data-tag="'+arr[i]+'"/>'));
+        $('#fields').append($('<input type="text" class="field" placeholder="'+arr[i][0].toUpperCase() + arr[i].slice(1) + '" data-tag="'+arr[i]+'"/><br>'));
     };
 }
