@@ -10,12 +10,31 @@ function getQuerystring(key, default_) {
     else
         return qs[1];
 }
+
+function generateHTML(stuff, callback) {
+    $.getJSON(chrome.extension.getURL('genres.json'), function(genres) {
+        var sdf = "Genre: " + genres[stuff.genre].name + "<br>";
+        parsed = JSON.parse(stuff.metadata);
+        for (var i = 0; i < Object.keys(parsed).length; i++) {
+            sdf += Object.keys(parsed)[i].capitalize() + ": " + parsed[Object.keys(parsed)[i]] + "<br>"
+        };
+        callback(sdf)
+    });
+}
+
 var videoId = getQuerystring('v')
 
 chrome.runtime.sendMessage({
     videoId: videoId,
     target: 'bg'
 }, function(response) {
-    console.log(response)
-    document.getElementById("mometa").innerHTML = "<br><b>Mo' Meta Data: </b>" + (response.metadata || "Nothing yet for this video...");
+    console.log(response);
+    generateHTML(response, function(s) {
+        document.getElementById("mometa").innerHTML = "<br><b>Mo' Meta Data </b><br>" + s;
+    })
+
 });
+
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}

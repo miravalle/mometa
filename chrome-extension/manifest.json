@@ -24,7 +24,8 @@
     "content_scripts": [{
         "matches": ["*://youtube.com/watch*", "*://*.youtube.com/watch*"],
         "js": ["jquery-2.1.3.min.js", "mometa.js"],
-        "web_accessible_resources": [],
+        "web_accessible_resources": ["./genres.json"],
         "run_at": "document_idle"
-    }]
+    }],
+    "web_accessible_resources": ["./genres.json", "genres.json"]
 }

@@ -40,6 +40,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         xmlhttp.send();
         sendResponse({
             metadata: JSON.parse(xmlhttp.responseText).metadata,
+            genre: JSON.parse(xmlhttp.responseText).genre,
             videoId: videoId
         });
     } else {
